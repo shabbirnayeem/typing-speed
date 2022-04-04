@@ -1,13 +1,10 @@
-import time
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
-from tkinter import scrolledtext
 from pynput.keyboard import Key, Controller
 import time
 import random
-import os
 
 
 # Desktop App for Typing Speed Test
