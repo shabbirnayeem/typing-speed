@@ -46,10 +46,6 @@ def match_text():
 
     # controlling the keyboard
     kb = Controller()
-    position_count = 0
-    # for index, term in enumerate(words_list):
-    #     position = type_area.index('insert')
-    #     print(position)
 
     # appending all the words
     all_words.append(term)
@@ -61,14 +57,6 @@ def match_text():
         for char in user_input:
             correct_cpm.append(char)
             raw_cpm.append(f"{char}")
-            # text_area.tag_add('correct', "1.0", f"1.{len(user_input)}")
-            # text_area.tag_configure('correct', background='green', foreground='red')
-
-        # chars_len = 0
-        # for chars in correct_wpm:
-        #     chars_len += len(chars)
-        #     text_area.tag_add('correct', "1.0", f"1.{chars_len+ 1}")
-        #     text_area.tag_configure('correct', background='green', foreground='red')
 
         # clear the type area box
         type_area.delete(0, 'end')
@@ -120,14 +108,6 @@ def get_words():
         return w
 
 
-def highlight():
-
-    user_input = type_area.get()
-    for w in words_list:
-        text_area.tag_add(w, "1.0", f"1.{len(user_input)}")
-        text_area.tag_configure("start", background='green', foreground='red')
-
-
 def timer():
     global amt_time
     while amt_time > -1:
@@ -141,9 +121,6 @@ def timer():
         time.sleep(1)
 
         if amt_time == 0:
-
-
-            #for key, value in incorrect_word.items():
 
             messagebox.showinfo("Timer Countdown", f"Your score: {len(correct_cpm)} CPM "
                                                    f"(that is {wpm_entry.get()} WPM)\n"
@@ -238,13 +215,6 @@ raw_cpm = []
 # count only the correct CPM
 correct_cpm = []
 
-
-# with open('word.text') as file:
-#     words = file.readlines()
-#
-#     words_list = []
-#     for word in words:
-#         words_list.append(word.strip('\n').replace(',', ''))
 # text_area = scrolledtext.ScrolledText(mid_frame, height=10, width=60, wrap='word', undo=True)
 text_area = tk.Entry(mid_frame, width=60)
 text_area.insert('end', get_words())
