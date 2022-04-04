@@ -5,11 +5,25 @@ from tkinter import ttk
 from pynput.keyboard import Key, Controller
 import time
 import random
+import requests
 
 
 # Desktop App for Typing Speed Test
 
 # ------------------------  Functions --------------------------------------------
+WORD_SITE = "https://www.mit.edu/~ecprice/wordlist.10000"
+
+
+def generate_word():
+    response = requests.get(WORD_SITE).text
+    word_list = []
+    for words in response.splitlines():
+        word_list.append(words)
+
+    random.shuffle(word_list)
+    for word in word_list:
+        return word
+
 
 def counter():
     # calculate NET WPM
@@ -30,7 +44,7 @@ def counter():
 def match_text():
 
     # getting new word from the list
-    new_word = get_words()
+    new_word = generate_word()
 
     # getting hold of the term from the text area
     term = text_area.get()
@@ -91,20 +105,6 @@ def match_text():
     counter()
 
 
-def get_words():
-
-    words_list = []
-    with open('word.text') as file:
-        words = file.readlines()
-
-        for word in words:
-            words_list.append(word.strip('\n').replace(',', ''))
-
-    random.shuffle(words_list)
-    for w in words_list:
-        return w
-
-
 def timer():
     global amt_time
     while amt_time > -1:
@@ -149,7 +149,7 @@ def restart():
 
     # re-insert the text from the word_list
     # random.shuffle(words_list)
-    text_area.insert("end", get_words())
+    text_area.insert("end", generate_word())
 
     timer()
     # window.destroy()
@@ -214,7 +214,7 @@ correct_cpm = []
 
 # text_area = scrolledtext.ScrolledText(mid_frame, height=10, width=60, wrap='word', undo=True)
 text_area = tk.Entry(mid_frame, width=60)
-text_area.insert('end', get_words())
+text_area.insert('end', generate_word())
 # highlight #
 text_area.pack()
 
